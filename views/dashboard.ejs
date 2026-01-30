@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard JSCL Node</title>
+</head>
+<body>
+  <h1>Bem-vindo ao Dashboard JSCL (Node + Prisma)</h1>
+  <p>Usuário: <%= user ? user.name : 'Visitante' %></p>
+  <p>Unidade: <%= unidade ? unidade.nome : 'N/A' %></p>
+  <p>Membros:</p>
+  <ul>
+    <% membros.forEach(function(membro) { %>
+      <li><%= membro.nome %> (<%= membro.email %>)</li>
+    <% }) %>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,142 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  membros   Membro[]
+}
+
+model Unidade {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  tipo      String
+  endereco  String?
+  telefone  String?
+  diasCultos Json?
+  membros   Membro[]
+}
+
+model Membro {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  email     String? @unique
+  telefone  String?
+  whatsapp  String?
+  endereco  String?
+  genero    String?
+  funcao    String?
+  cpf       String? @unique
+  dataNascimento DateTime?
+  dataBatismo DateTime?
+  dataReconciliacao DateTime?
+  igrejaAnterior String?
+  cargoEclesiastico String?
+  observacoes String?
+  status    String? @default("ativo")
+  dataAprovacao DateTime?
+  dataDesativacao DateTime?
+  aprovadoPor Int?
+  cadastradoPor Int?
+  ultimaReativacaoSolicitada DateTime?
+  unidade   Unidade @relation(fields: [unidadeId], references: [id])
+  unidadeId Int
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Aviso {
+  id        Int      @id @default(autoincrement())
+  titulo    String
+  conteudo  String
+  imagem    String?
+  unidadeId Int?
+  usuarioId Int
+  dataCriacao DateTime @default(now())
+  dataAtualizacao DateTime @updatedAt
+  ativo     Boolean  @default(true)
+}
+
+model Ministerio {
+  id        Int      @id @default(autoincrement())
+  nome      String   @unique
+  descricao String
+  responsavel String?
+  email     String?
+  telefone  String?
+  icone     String?
+  criadoPor Int?
+  dataCriacao DateTime @default(now())
+  dataAtualizacao DateTime @updatedAt
+}
+
+model PedidoOracao {
+  id        Int      @id @default(autoincrement())
+  usuarioId Int?
+  nomeCompleto String?
+  telefone  String?
+  email     String?
+  tipoOracao String?
+  titulo    String?
+  descricao String
+  ehMembro  Boolean @default(false)
+  unidadeId Int?
+  status    String? @default("pendente")
+  respondido Boolean @default(false)
+  dataCriacao DateTime @default(now())
+}
+
+model AcaoSocial {
+  id        Int      @id @default(autoincrement())
+  nome      String   @unique
+  descricao String
+  responsavel String?
+  email     String?
+  telefone  String?
+  diaSemana String?
+  horario   String?
+  localRealizacao String?
+  icone     String?
+  criadoPor Int?
+  dataCriacao DateTime @default(now())
+  dataAtualizacao DateTime @updatedAt
+}
+
+model AvisoLeitura {
+  id        Int      @id @default(autoincrement())
+  avisoId   Int
+  membroId  Int
+  dataLeitura DateTime @default(now())
+}
+
+model AvisoUnidade {
+  id        Int      @id @default(autoincrement())
+  avisoId   Int
+  unidadeId Int
+}
+
+model SolicitacaoReativacao {
+  id        Int      @id @default(autoincrement())
+  membroId  Int
+  dataSolicitacao DateTime @default(now())
+  ultimaSolicitacao DateTime @updatedAt
+  contadorTentativas Int @default(1)
+  status    String? @default("pendente")
+  observacoes String?
+}

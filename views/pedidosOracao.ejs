@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Pedidos de Oração JSCL</title>
+</head>
+<body>
+  <h1>Pedidos de Oração</h1>
+  <ul>
+    <% pedidos.forEach(function(pedido) { %>
+      <li><%= pedido.titulo %> - <%= pedido.descricao %> (<%= pedido.status %>)</li>
+    <% }) %>
+  </ul>
+
+  <h2>Cadastrar Novo Pedido</h2>
+  <form action="/pedidos-oracao/cadastrar" method="POST">
+    <input type="text" name="titulo" placeholder="Título" required />
+    <input type="text" name="descricao" placeholder="Descrição" />
+    <input type="text" name="tipoOracao" placeholder="Tipo de Oração" />
+    <input type="text" name="nomeCompleto" placeholder="Nome Completo" />
+    <input type="email" name="email" placeholder="Email" />
+    <input type="text" name="telefone" placeholder="Telefone" />
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <h2>Editar/Excluir Pedido</h2>
+  <form action="/pedidos-oracao/editar/<%= pedidos[0] ? pedidos[0].id : '' %>" method="POST">
+    <input type="text" name="titulo" placeholder="Novo título" />
+    <input type="text" name="descricao" placeholder="Nova descrição" />
+    <input type="text" name="tipoOracao" placeholder="Novo tipo" />
+    <input type="text" name="status" placeholder="Novo status" />
+    <button type="submit">Editar Primeiro Pedido</button>
+  </form>
+
+  <form action="/pedidos-oracao/excluir/<%= pedidos[0] ? pedidos[0].id : '' %>" method="POST">
+    <button type="submit">Excluir Primeiro Pedido</button>
+  </form>
+</body>
+</html>

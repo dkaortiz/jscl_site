@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Solicitações de Reativação JSCL</title>
+</head>
+<body>
+  <h1>Solicitações de Reativação</h1>
+  <ul>
+    <% solicitacoes.forEach(function(solicitacao) { %>
+      <li>Membro: <%= solicitacao.membro ? solicitacao.membro.nome : 'N/A' %> - Status: <%= solicitacao.status %> - Tentativas: <%= solicitacao.contadorTentativas %></li>
+    <% }) %>
+  </ul>
+
+  <h2>Cadastrar Nova Solicitação</h2>
+  <form action="/solicitacoes-reativacao/cadastrar" method="POST">
+    <input type="number" name="membroId" placeholder="ID do Membro" required />
+    <input type="text" name="observacoes" placeholder="Observações" />
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <h2>Editar/Excluir Solicitação</h2>
+  <form action="/solicitacoes-reativacao/editar/<%= solicitacoes[0] ? solicitacoes[0].id : '' %>" method="POST">
+    <input type="text" name="status" placeholder="Novo status" />
+    <input type="text" name="observacoes" placeholder="Nova observação" />
+    <button type="submit">Editar Primeira Solicitação</button>
+  </form>
+
+  <form action="/solicitacoes-reativacao/excluir/<%= solicitacoes[0] ? solicitacoes[0].id : '' %>" method="POST">
+    <button type="submit">Excluir Primeira Solicitação</button>
+  </form>
+</body>
+</html>

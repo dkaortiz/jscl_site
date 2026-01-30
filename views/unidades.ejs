@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Unidades JSCL</title>
+</head>
+<body>
+  <h1>Unidades</h1>
+  <ul>
+    <% unidades.forEach(function(unidade) { %>
+      <li><%= unidade.nome %> - <%= unidade.tipo %></li>
+    <% }) %>
+  </ul>
+</body>
+
+<h2>Cadastrar Nova Unidade</h2>
+<form action="/unidades/cadastrar" method="POST">
+  <input type="text" name="nome" placeholder="Nome" required />
+  <input type="text" name="tipo" placeholder="Tipo" />
+  <button type="submit">Cadastrar</button>
+</form>
+
+<h2>Editar/Excluir Unidade</h2>
+<form action="/unidades/editar/<%= unidades[0] ? unidades[0].id : '' %>" method="POST">
+  <input type="text" name="nome" placeholder="Novo nome" />
+  <input type="text" name="tipo" placeholder="Novo tipo" />
+  <button type="submit">Editar Primeira Unidade</button>
+</form>
+
+<form action="/unidades/excluir/<%= unidades[0] ? unidades[0].id : '' %>" method="POST">
+  <button type="submit">Excluir Primeira Unidade</button>
+</form>
+</body>
+</html>

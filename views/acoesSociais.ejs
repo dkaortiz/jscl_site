@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Ações Sociais JSCL</title>
+</head>
+<body>
+  <h1>Ações Sociais</h1>
+  <ul>
+    <% acoes.forEach(function(acao) { %>
+      <li><%= acao.nome %> - <%= acao.descricao %> (<%= acao.responsavel %>)</li>
+    <% }) %>
+  </ul>
+
+  <h2>Cadastrar Nova Ação Social</h2>
+  <form action="/acoes-sociais/cadastrar" method="POST">
+    <input type="text" name="nome" placeholder="Nome" required />
+    <input type="text" name="descricao" placeholder="Descrição" />
+    <input type="text" name="responsavel" placeholder="Responsável" />
+    <input type="text" name="diaSemana" placeholder="Dia da Semana" />
+    <input type="text" name="horario" placeholder="Horário" />
+    <input type="text" name="localRealizacao" placeholder="Local" />
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <h2>Editar/Excluir Ação Social</h2>
+  <form action="/acoes-sociais/editar/<%= acoes[0] ? acoes[0].id : '' %>" method="POST">
+    <input type="text" name="nome" placeholder="Novo nome" />
+    <input type="text" name="descricao" placeholder="Nova descrição" />
+    <input type="text" name="responsavel" placeholder="Novo responsável" />
+    <input type="text" name="diaSemana" placeholder="Novo dia" />
+    <input type="text" name="horario" placeholder="Novo horário" />
+    <input type="text" name="localRealizacao" placeholder="Novo local" />
+    <button type="submit">Editar Primeira Ação</button>
+  </form>
+
+  <form action="/acoes-sociais/excluir/<%= acoes[0] ? acoes[0].id : '' %>" method="POST">
+    <button type="submit">Excluir Primeira Ação</button>
+  </form>
+</body>
+</html>

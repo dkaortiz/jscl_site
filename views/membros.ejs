@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Membros JSCL</title>
+</head>
+<body>
+  <h1>Lista de Membros</h1>
+  <ul>
+    <% membros.forEach(function(membro) { %>
+      <li><%= membro.nome %> (<%= membro.email %>)</li>
+    <% }) %>
+  </ul>
+</body>
+
+<h2>Cadastrar Novo Membro</h2>
+<form action="/membros/cadastrar" method="POST">
+  <input type="text" name="nome" placeholder="Nome" required />
+  <input type="email" name="email" placeholder="Email" />
+  <input type="text" name="cpf" placeholder="CPF" />
+  <button type="submit">Cadastrar</button>
+</form>
+
+<h2>Editar/Excluir Membro</h2>
+<form action="/membros/editar/<%= membros[0] ? membros[0].id : '' %>" method="POST">
+  <input type="text" name="nome" placeholder="Novo nome" />
+  <input type="email" name="email" placeholder="Novo email" />
+  <button type="submit">Editar Primeiro Membro</button>
+</form>
+
+<form action="/membros/excluir/<%= membros[0] ? membros[0].id : '' %>" method="POST">
+  <button type="submit">Excluir Primeiro Membro</button>
+</form>
+</body>
+</html>

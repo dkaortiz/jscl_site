@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Ministérios JSCL</title>
+</head>
+<body>
+  <h1>Ministérios</h1>
+  <ul>
+    <% ministerios.forEach(function(ministerio) { %>
+      <li><%= ministerio.nome %> - <%= ministerio.descricao %></li>
+    <% }) %>
+  </ul>
+
+  <h2>Cadastrar Novo Ministério</h2>
+  <form action="/ministerios/cadastrar" method="POST">
+    <input type="text" name="nome" placeholder="Nome" required />
+    <input type="text" name="descricao" placeholder="Descrição" />
+    <input type="text" name="responsavel" placeholder="Responsável" />
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <h2>Editar/Excluir Ministério</h2>
+  <form action="/ministerios/editar/<%= ministerios[0] ? ministerios[0].id : '' %>" method="POST">
+    <input type="text" name="nome" placeholder="Novo nome" />
+    <input type="text" name="descricao" placeholder="Nova descrição" />
+    <input type="text" name="responsavel" placeholder="Novo responsável" />
+    <button type="submit">Editar Primeiro Ministério</button>
+  </form>
+
+  <form action="/ministerios/excluir/<%= ministerios[0] ? ministerios[0].id : '' %>" method="POST">
+    <button type="submit">Excluir Primeiro Ministério</button>
+  </form>
+</body>
+</html>
